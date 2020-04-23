@@ -1,3 +1,23 @@
+<<?php
+use Entity\User;
+use Entity\Deck;
+
+require '../vendor/autoload.php';
+$usr1 = new User();
+$usr1->id = 1;
+$usr1->nickname = "Fighter";
+$usr1->password = "kaitoshiki"
+
+$dck1 = new Deck();
+$dck1->id = 1;
+$dck1->deckName = "Overlord The Purge";
+$dck1->clan = "Kagero";
+$dck1->img = "https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356"
+$dck1->description = "Flames of the apocalypse will rise again!";
+
+$decks = array($dck1);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +85,6 @@
 
       </div>
       <!-- /.col-lg-3 -->
-
 
       <div class="row">
 
