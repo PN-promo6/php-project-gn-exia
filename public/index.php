@@ -1,23 +1,3 @@
-<<?php
-use Entity\User;
-use Entity\Deck;
-
-require '../vendor/autoload.php';
-$usr1 = new User();
-$usr1->id = 1;
-$usr1->nickname = "Fighter";
-$usr1->password = "kaitoshiki"
-
-$dck1 = new Deck();
-$dck1->id = 1;
-$dck1->deckName = "Overlord The Purge";
-$dck1->clan = "Kagero";
-$dck1->img = "https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356"
-$dck1->description = "Flames of the apocalypse will rise again!";
-
-$decks = array($dck1);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,8 +24,7 @@ $decks = array($dck1);
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Meta Gang</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -90,9 +69,7 @@ $decks = array($dck1);
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top"
-                src="https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356"
-                alt=""></a>
+            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">Dragonic Overlord - The Purge</a>
@@ -109,9 +86,7 @@ $decks = array($dck1);
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top"
-                src="https://vignette.wikia.nocookie.net/cardfight/images/7/7f/Marshal_General_of_Wave_Honor%2C_Alexandros_%28Full_Art%29.png/revision/latest?cb=20171117102230"
-                alt=""></a>
+            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/7/7f/Marshal_General_of_Wave_Honor%2C_Alexandros_%28Full_Art%29.png/revision/latest?cb=20171117102230" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">Marshal General of Surging Seas, Alexandros</a>
@@ -128,9 +103,7 @@ $decks = array($dck1);
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top"
-                src="https://vignette.wikia.nocookie.net/cardfight/images/2/28/Holy_Dragon%2C_Brave_Lancer_Dragon_%28Full_Art%29.png/revision/latest?cb=20161210004607"
-                alt=""></a>
+            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/2/28/Holy_Dragon%2C_Brave_Lancer_Dragon_%28Full_Art%29.png/revision/latest?cb=20161210004607" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">Holy Dragon, Brave Lancer Dragon</a>
@@ -147,9 +120,7 @@ $decks = array($dck1);
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top"
-                src="https://vignette.wikia.nocookie.net/cardfight/images/3/30/Messianic_Lord_Blaster_%28Full_Art-V%29.png/revision/latest?cb=20190414042924"
-                alt=""></a>
+            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/3/30/Messianic_Lord_Blaster_%28Full_Art-V%29.png/revision/latest?cb=20190414042924" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">Messianic Lord Blaster</a>
@@ -166,9 +137,7 @@ $decks = array($dck1);
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top"
-                src="https://vignette.wikia.nocookie.net/cardfight/images/2/25/Maiden_White_Lily_Musketeer_Captain%2C_Virginal_Cecilia_%28Full_Art%29.png/revision/latest?cb=20171208035033"
-                alt=""></a>
+            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/2/25/Maiden_White_Lily_Musketeer_Captain%2C_Virginal_Cecilia_%28Full_Art%29.png/revision/latest?cb=20171208035033" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">Maiden White Lily Musketeer, Captain Virginal Cecilia</a>
@@ -185,9 +154,7 @@ $decks = array($dck1);
 
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top"
-                src="https://vignette.wikia.nocookie.net/cardfight/images/9/9c/Master_Swordsman_of_First_Light%2C_Gurguit_Helios_%28Full_Art%29.png/revision/latest?cb=20171117013920"
-                alt=""></a>
+            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/9/9c/Master_Swordsman_of_First_Light%2C_Gurguit_Helios_%28Full_Art%29.png/revision/latest?cb=20171117013920" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="#">Master Swordsman of First Light, Gurguit Helios</a>
