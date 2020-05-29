@@ -1,3 +1,62 @@
+<?php
+
+namespace Entity;
+
+use Entity\User;
+use Entity\Deck;
+use ludk\Persistence\ORM;
+
+require __DIR__ . '/../vendor/autoload.php';
+$orm = new ORM(__DIR__ . '/../Resources');
+$codeRepo = $orm->getRepository(Deck::class);
+$decks = array();
+if (isset($_GET['search'])) {
+  $decks = $codeRepo->findBy(array("content" => $_GET['search']));
+} else {
+  $decks = $codeRepo->findAll();
+}
+
+// require '../vendor/autoload.php';
+
+// $usr1 = new User();
+// $usr1->id = 1;
+// $usr1->nickname = "Toshikikai";
+// $usr1->password = "StandUpTheVanguard";
+
+// $deck1 = new Deck();
+// $deck1->id = 1;
+// $deck1->deckName = "Dragonic Overlord - The Purge";
+// $deck1->clan = "Kagero";
+// $deck1->img = "https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356";
+// $deck1->description = "Flames of the apocalypse will rise again!";
+
+// $usr2 = new User();
+// $usr2->id = 2;
+// $usr2->nickname = "Toshikikai";
+// $usr2->password = "StandUpTheVanguard";
+
+// $deck2 = new Deck();
+// $deck2->id = 2;
+// $deck2->deckName = "Marshal General of Surging Seas, Alexandros";
+// $deck2->clan = "Aqua Force";
+// $deck2->img = "https://vignette.wikia.nocookie.net/cardfight/images/7/7f/Marshal_General_of_Wave_Honor%2C_Alexandros_%28Full_Art%29.png/revision/latest?cb=20171117102230";
+// $deck2->description = "Overcomming time itself. Alliance Army is here!";
+
+// $usr3 = new User();
+// $usr3->id = 3;
+// $usr3->nickname = "Toshikikai";
+// $usr3->password = "StandUpTheVanguard";
+
+// $deck3 = new Deck();
+// $deck3->id = 3;
+// $deck3->deckName = "Dragonic Kaiser Vermillion";
+// $deck3->clan = "Narukami";
+// $deck3->img = "https://vignette.wikia.nocookie.net/cardfight/images/1/13/Dragonic_Kaiser_Vermillion_%28Full_Art-V%29.png/revision/latest?cb=20181214031536";
+// $deck3->description = "This is the power to break through all limits!";
+
+//$decks = array($deck1, $deck2, $deck3);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +73,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.css?time=<?php echo time(); ?>" rel="stylesheet">
 
 </head>
 
@@ -51,31 +110,27 @@
   <!-- Page Content -->
   <div class="container">
 
+    <!-- /.col-lg-3 -->
+
     <div class="row">
 
-      <div class="col-lg-3">
+      <?php
+      $i = 0;
+      foreach ($decks as $deck) {
+        if ($i % 3 == 0 && $i > 0) {
+          echo '</div><div class="row">';
+        }
 
-        <h1 class="my-4">Shop Name</h1>
-        <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
-        </div>
-
-      </div>
-      <!-- /.col-lg-3 -->
-
-      <div class="row">
-
-        <div class="col-lg-4 col-md-6 mb-4">
+      ?>
+        <div class="col-4">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356" alt=""></a>
+            <a href="#"><img class="card-img-top" src="<?php echo $deck->img; ?>" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">Dragonic Overlord - The Purge</a>
+                <a href="#"><?php echo $deck->deckName; ?></a>
               </h4>
 
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+              <p class="card-text"><?php echo $deck->description; ?>
               </p>
             </div>
             <div class="card-footer">
@@ -83,96 +138,14 @@
             </div>
           </div>
         </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/7/7f/Marshal_General_of_Wave_Honor%2C_Alexandros_%28Full_Art%29.png/revision/latest?cb=20171117102230" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Marshal General of Surging Seas, Alexandros</a>
-              </h4>
-
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                Lorem ipsum dolor sit amet.</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/2/28/Holy_Dragon%2C_Brave_Lancer_Dragon_%28Full_Art%29.png/revision/latest?cb=20161210004607" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Holy Dragon, Brave Lancer Dragon</a>
-              </h4>
-
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-              </p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/3/30/Messianic_Lord_Blaster_%28Full_Art-V%29.png/revision/latest?cb=20190414042924" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Messianic Lord Blaster</a>
-              </h4>
-
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-              </p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/2/25/Maiden_White_Lily_Musketeer_Captain%2C_Virginal_Cecilia_%28Full_Art%29.png/revision/latest?cb=20171208035033" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Maiden White Lily Musketeer, Captain Virginal Cecilia</a>
-              </h4>
-
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                Lorem ipsum dolor sit amet.</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://vignette.wikia.nocookie.net/cardfight/images/9/9c/Master_Swordsman_of_First_Light%2C_Gurguit_Helios_%28Full_Art%29.png/revision/latest?cb=20171117013920" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Master Swordsman of First Light, Gurguit Helios</a>
-              </h4>
-
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-              </p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
+      <?php
+        $i++;
+      }
+      ?>
     </div>
+
+    <!-- /.row -->
+
     <!-- /.col-lg-9 -->
 
   </div>

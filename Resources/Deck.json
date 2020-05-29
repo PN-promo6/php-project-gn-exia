@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "deckName": "Dragonic Overlord - The Purge",
+        "clan": "kagero",
+        "img": "https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356",
+        "description": "Flames of the apocalypse will rise again!",
+        "user": 1
+    },
+    {
+        "id": 2,
+        "deckName": "Marshal General of Surging Seas, Alexandros",
+        "clan": "Aqua Force",
+        "img": "https://vignette.wikia.nocookie.net/cardfight/images/7/7f/Marshal_General_of_Wave_Honor%2C_Alexandros_%28Full_Art%29.png/revision/latest?cb=20171117102230",
+        "description": "Overcomming time itself. Alliance Army is here!",
+        "user": 2
+    },
+    {
+        "id": 3,
+        "deckName": "Dragonic Kaiser Vermillion",
+        "clan": "Narukami",
+        "img": "https://vignette.wikia.nocookie.net/cardfight/images/1/13/Dragonic_Kaiser_Vermillion_%28Full_Art-V%29.png/revision/latest?cb=20181214031536",
+        "description": "This is the power to break through all limits!",
+        "user": 3
+    }
+]

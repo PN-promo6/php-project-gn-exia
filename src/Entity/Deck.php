@@ -3,6 +3,7 @@
 namespace Entity;
 
 use Entity\User;
+use ludk\Utils\Serializer;
 
 class Deck
 {
@@ -11,5 +12,7 @@ class Deck
     public $clan;
     public $img;
     public $description;
-    public User $nickname;
+    public User $user;
+
+    use Serializer;
 }

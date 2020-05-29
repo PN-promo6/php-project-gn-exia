@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "nickname": "Toshikikai",
+        "password": "StandUpTheVanguard"
+    },
+    {
+        "id": 2,
+        "nickname": "SendouAichi",
+        "password": "StandUpVanguard"
+    },
+    {
+        "id": 3,
+        "nickname": "TokuraMisaki",
+        "password": "StandUpMyVanguard"
+    }
+]
