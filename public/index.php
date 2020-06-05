@@ -2,13 +2,15 @@
 
 namespace Entity;
 
-use Entity\User;
+use Entity\Clan;
 
 use Entity\Deck;
 
-use Entity\Clan;
+use Entity\User;
 
 use ludk\Persistence\ORM;
+use Controller\AuthController;
+use Controller\HomeController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -30,93 +32,19 @@ switch ($action) {
 
   case 'register':
 
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['passwordRetype'])) {
-
-      $errorMsg = NULL;
-
-      $users = $userRepo->findBy(array("nickname" => $nickname));
-
-      if (count($users > 0)) {
-
-        $errorMsg = "Nickname already used.";
-      } else if ($_POST['password'] != $_POST['passwordRetype']) {
-
-        $errorMsg = "Passwords are not the same.";
-      } else if (strlen(trim($_POST['password'])) < 8) {
-
-        $errorMsg = "Your password should have at least 8 characters.";
-      } else if (strlen(trim($_POST['username'])) < 4) {
-
-        $errorMsg = "Your nickame should have at least 4 characters.";
-      }
-
-      if ($errorMsg) {
-
-        include "../templates/registerform.php";
-      } else {
-
-        $user = new User;
-
-        $user->nickname = $_POST['nickname'];
-
-        $user->password = $_POST['password'];
-
-        $_SESSION['user'] = $user;
-
-        $manager->persist($user);
-
-        $manager->flush();
-
-        header('Location: ?action=register');
-      }
-    } else {
-
-      include "../templates/registerform.php";
-    }
+    $controller = new AuthController();
+    $controller->register();
 
     break;
 
   case 'logout':
-
-    if (isset($_SESSION['user'])) {
-
-      unset($_SESSION['user']);
-    }
-    header('Location: ?action=display');
-
+    $controller = new AuthController();
+    $controller->logout();
     break;
 
   case 'login':
-
-    if (isset($_POST['username']) && isset($_POST['password'])) {
-
-      $users = $userRepo->findBy(array("nickname" => $_POST['username']));
-
-      if (count($users) == 1) {
-
-        $user = $users[0];
-
-        if ($user->password != md5($_POST['password'])) {
-
-          $errorMsg = "Wrong password.";
-
-          include "../templates/loginform.php";
-        } else {
-
-          $_SESSION['user'] = $users[0];
-
-          header('Location:/?action=display');
-        }
-      } else {
-
-        $errorMsg = "Nickname doesn't exist.";
-
-        include "../templates/loginform.php";
-      }
-    } else {
-
-      include "../templates/loginform.php";
-    }
+    $controller = new AuthController();
+    $controller->login();
     break;
 
   case 'new':
@@ -124,42 +52,8 @@ switch ($action) {
     break;
 
   case 'display':
-
-    $decks = array();
-
-    if (isset($_GET['search'])) {
-
-      $search = $_GET['search'];
-
-      if (strpos($search, "@") === 0) {
-
-        $nickname = substr($search, 1);
-
-        $users = $userRepo->findBy(array("nickname" => $nickname));
-
-        if (count($users) == 1) {
-
-          $user = $users[0];
-
-          $decks = $deckRepo->findBy(array("user" => $user->id));
-        }
-      } elseif (strpos($search, "#") === 0) {
-
-        $clan = substr($search, 1);
-
-        $decks = $deckRepo->findBy(array("clan" => $clan));
-      } else {
-
-        $decks = $deckRepo->findBy(array("description" => $_GET['search']));
-      }
-    } else {
-
-      $decks = $deckRepo->findAll();
-    }
-
-    include "../templates/display.php";
-
+    $controller = new HomeController();
+    $controller->display();
   default;
-
     break;
 }
