@@ -2,19 +2,28 @@
 
 namespace Controller;
 
-class HomeController
+use ludk\Http\Request;
+use ludk\Http\Response;
+use ludk\Controller\AbstractController;
+
+class HomeController extends AbstractController
 {
-    public function display()
+    public function display(Request $request): Response
     {
         global $userRepo;
         global $deckRepo;
         global $clanRepo;
 
+        $userRepo = $this->getOrm()->getRepository(Language::class);
+        $deckRepo = $this->getOrm()->getRepository(Language::class);
+        $clanRepo = $this->getOrm()->getRepository(Language::class);
+        $manager = $this->getOrm()->getManager();
+
         $decks = array();
 
-        if (isset($_GET['search'])) {
+        if ($request->query->has('search')) {
 
-            $search = $_GET['search'];
+            $search = $request->query->get('search');
 
             if (strpos($search, "@") === 0) {
 
@@ -35,7 +44,7 @@ class HomeController
                 $decks = $deckRepo->findBy(array("clan" => $clan));
             } else {
 
-                $decks = $deckRepo->findBy(array("description" => $_GET['search']));
+                $decks = $deckRepo->findBy(array("description" => $search));
             }
         } else {
 
