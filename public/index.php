@@ -120,43 +120,7 @@ switch ($action) {
     break;
 
   case 'new':
-    if (!isset($_SESSION['user'])) {
-      header('Location:/?action=display');
-    } else {
-      $clans = $clanRepo->findAll();
-      if (
-        isset($_POST['clan']) && isset($_POST['deckName'])
-        && isset($_POST['description']) && isset($_POST['image'])
-      ) {
-        $errorMsg = NULL;
-        if ($_POST['deckName'] == "0") {
-          $errorMsg = "Name your deck.";
-        } else if (empty($_POST['clan'])) {
-          $errorMsg = "Choose a clan.";
-        } else if (empty($_POST['description'])) {
-          $errorMsg = "Put a description.";
-        } else if (empty($_POST['content'])) {
-          $errorMsg = "Put an image.";
-        }
-        if ($errorMsg) {
-          include "../templates/new.php";
-        } else {
-          $clan = $clanRepo->find($_POST['clan']);
-          $newdeck = new Deck();
-          $newdeck->deckName = $_POST['deckName'];
-          $newdeck->description = $_POST['description'];
-          $newdeck->content = $_POST['content'];
-          $newdeck->creationDate = time();
-          $newdeck->deck = $deck;
-          $newdeck->user = $_SESSION['user'];
-          $manager->persist($newDeck);
-          $manager->flush();
-          header('Location:/?action=display');
-        }
-      } else {
-        include "../templates/new.php";
-      }
-    }
+
     break;
 
   case 'display':
