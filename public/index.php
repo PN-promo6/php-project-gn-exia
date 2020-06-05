@@ -3,169 +3,200 @@
 namespace Entity;
 
 use Entity\User;
+
 use Entity\Deck;
+
+use Entity\Clan;
+
 use ludk\Persistence\ORM;
 
 require __DIR__ . '/../vendor/autoload.php';
+
+session_start();
+
 $orm = new ORM(__DIR__ . '/../Resources');
-$codeRepo = $orm->getRepository(Deck::class);
-$decks = array();
-if (isset($_GET['search'])) {
-  $decks = $codeRepo->findBy(array("content" => $_GET['search']));
-} else {
-  $decks = $codeRepo->findAll();
-}
 
-// require '../vendor/autoload.php';
+$userRepo = $orm->getRepository(User::class);
 
-// $usr1 = new User();
-// $usr1->id = 1;
-// $usr1->nickname = "Toshikikai";
-// $usr1->password = "StandUpTheVanguard";
+$deckRepo = $orm->getRepository(Deck::class);
 
-// $deck1 = new Deck();
-// $deck1->id = 1;
-// $deck1->deckName = "Dragonic Overlord - The Purge";
-// $deck1->clan = "Kagero";
-// $deck1->img = "https://vignette.wikia.nocookie.net/cardfight/images/2/22/Supreme_Heavenly_Emperor_Dragon%2C_Dragonic_Overlord_The_Purge_%28Full_Art%29.png/revision/latest?cb=20181229111356";
-// $deck1->description = "Flames of the apocalypse will rise again!";
+$clanRepo = $orm->getRepository(Clan::class);
 
-// $usr2 = new User();
-// $usr2->id = 2;
-// $usr2->nickname = "Toshikikai";
-// $usr2->password = "StandUpTheVanguard";
+$manager = $orm->getManager();
 
-// $deck2 = new Deck();
-// $deck2->id = 2;
-// $deck2->deckName = "Marshal General of Surging Seas, Alexandros";
-// $deck2->clan = "Aqua Force";
-// $deck2->img = "https://vignette.wikia.nocookie.net/cardfight/images/7/7f/Marshal_General_of_Wave_Honor%2C_Alexandros_%28Full_Art%29.png/revision/latest?cb=20171117102230";
-// $deck2->description = "Overcomming time itself. Alliance Army is here!";
+$action = $_GET["action"] ?? "display";
 
-// $usr3 = new User();
-// $usr3->id = 3;
-// $usr3->nickname = "Toshikikai";
-// $usr3->password = "StandUpTheVanguard";
+switch ($action) {
 
-// $deck3 = new Deck();
-// $deck3->id = 3;
-// $deck3->deckName = "Dragonic Kaiser Vermillion";
-// $deck3->clan = "Narukami";
-// $deck3->img = "https://vignette.wikia.nocookie.net/cardfight/images/1/13/Dragonic_Kaiser_Vermillion_%28Full_Art-V%29.png/revision/latest?cb=20181214031536";
-// $deck3->description = "This is the power to break through all limits!";
+  case 'register':
 
-//$decks = array($deck1, $deck2, $deck3);
-?>
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['passwordRetype'])) {
 
-<!DOCTYPE html>
-<html lang="en">
+      $errorMsg = NULL;
 
-<head>
+      $users = $userRepo->findBy(array("nickname" => $nickname));
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+      if (count($users > 0)) {
 
-  <title>Publish your best deck</title>
+        $errorMsg = "Nickname already used.";
+      } else if ($_POST['password'] != $_POST['passwordRetype']) {
 
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        $errorMsg = "Passwords are not the same.";
+      } else if (strlen(trim($_POST['password'])) < 8) {
 
-  <!-- Custom styles for this template -->
-  <link href="css/style.css?time=<?php echo time(); ?>" rel="stylesheet">
+        $errorMsg = "Your password should have at least 8 characters.";
+      } else if (strlen(trim($_POST['username'])) < 4) {
 
-</head>
-
-<body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Meta Gang</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Page Content -->
-  <div class="container">
-
-    <!-- /.col-lg-3 -->
-
-    <div class="row">
-
-      <?php
-      $i = 0;
-      foreach ($decks as $deck) {
-        if ($i % 3 == 0 && $i > 0) {
-          echo '</div><div class="row">';
-        }
-
-      ?>
-        <div class="col-4">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="<?php echo $deck->img; ?>" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#"><?php echo $deck->deckName; ?></a>
-              </h4>
-
-              <p class="card-text"><?php echo $deck->description; ?>
-              </p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-          </div>
-        </div>
-      <?php
-        $i++;
+        $errorMsg = "Your nickame should have at least 4 characters.";
       }
-      ?>
-    </div>
 
-    <!-- /.row -->
+      if ($errorMsg) {
 
-    <!-- /.col-lg-9 -->
+        include "../templates/registerform.php";
+      } else {
 
-  </div>
-  <!-- /.row -->
+        $user = new User;
 
-  </div>
-  <!-- /.container -->
+        $user->nickname = $_POST['nickname'];
 
-  <!-- Footer -->
-  <footer class="py-5 bg-primary">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-    <!-- /.container -->
-  </footer>
+        $user->password = $_POST['password'];
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        $_SESSION['user'] = $user;
 
-</body>
+        $manager->persist($user);
 
-</html>
+        $manager->flush();
+
+        header('Location: ?action=register');
+      }
+    } else {
+
+      include "../templates/registerform.php";
+    }
+
+    break;
+
+  case 'logout':
+
+    if (isset($_SESSION['user'])) {
+
+      unset($_SESSION['user']);
+    }
+    header('Location: ?action=display');
+
+    break;
+
+  case 'login':
+
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+
+      $users = $userRepo->findBy(array("nickname" => $_POST['username']));
+
+      if (count($users) == 1) {
+
+        $user = $users[0];
+
+        if ($user->password != md5($_POST['password'])) {
+
+          $errorMsg = "Wrong password.";
+
+          include "../templates/loginform.php";
+        } else {
+
+          $_SESSION['user'] = $users[0];
+
+          header('Location:/?action=display');
+        }
+      } else {
+
+        $errorMsg = "Nickname doesn't exist.";
+
+        include "../templates/loginform.php";
+      }
+    } else {
+
+      include "../templates/loginform.php";
+    }
+    break;
+
+  case 'new':
+    if (!isset($_SESSION['user'])) {
+      header('Location:/?action=display');
+    } else {
+      $clans = $clanRepo->findAll();
+      var_dump($clans);
+      if (
+        isset($_POST['clan']) && isset($_POST['deckName'])
+        && isset($_POST['description']) && isset($_POST['image'])
+      ) {
+        $errorMsg = NULL;
+        if ($_POST['deckName'] == "0") {
+          $errorMsg = "Name your deck.";
+        } else if (empty($_POST['clan'])) {
+          $errorMsg = "Choose a clan.";
+        } else if (empty($_POST['description'])) {
+          $errorMsg = "Put a description.";
+        } else if (empty($_POST['content'])) {
+          $errorMsg = "Put an image.";
+        }
+        if ($errorMsg) {
+          include "../templates/new.php";
+        } else {
+          $clan = $clanRepo->find($_POST['clan']);
+          $newdeck = new Deck();
+          $newdeck->deckName = $_POST['deckName'];
+          $newdeck->description = $_POST['description'];
+          $newdeck->content = $_POST['content'];
+          $newdeck->creationDate = time();
+          $newdeck->deck = $deck;
+          $newdeck->user = $_SESSION['user'];
+          $manager->persist($newDeck);
+          $manager->flush();
+          header('Location:/?action=display');
+        }
+      } else {
+        include "../templates/new.php";
+      }
+    }
+    break;
+
+  case 'display':
+
+    $decks = array();
+
+    if (isset($_GET['search'])) {
+
+      $search = $_GET['search'];
+
+      if (strpos($search, "@") === 0) {
+
+        $nickname = substr($search, 1);
+
+        $users = $userRepo->findBy(array("nickname" => $nickname));
+
+        if (count($users) == 1) {
+
+          $user = $users[0];
+
+          $decks = $deckRepo->findBy(array("user" => $user->id));
+        }
+      } elseif (strpos($search, "#") === 0) {
+
+        $clan = substr($search, 1);
+
+        $decks = $deckRepo->findBy(array("clan" => $clan));
+      } else {
+
+        $decks = $deckRepo->findBy(array("description" => $_GET['search']));
+      }
+    } else {
+
+      $decks = $deckRepo->findAll();
+    }
+
+    include "../templates/display.php";
+
+  default;
+
+    break;
+}

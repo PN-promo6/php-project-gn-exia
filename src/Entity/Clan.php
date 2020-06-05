@@ -4,11 +4,10 @@ namespace Entity;
 
 use ludk\Utils\Serializer;
 
-class User
+class Clan
 {
     public int $id;
-    public string $nickname;
-    public string $password;
+    public string $clanName;
 
     use Serializer;
 };
