@@ -124,7 +124,6 @@ switch ($action) {
       header('Location:/?action=display');
     } else {
       $clans = $clanRepo->findAll();
-      var_dump($clans);
       if (
         isset($_POST['clan']) && isset($_POST['deckName'])
         && isset($_POST['description']) && isset($_POST['image'])

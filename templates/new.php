@@ -28,9 +28,9 @@ include "inc/head.php";
                             <select name="clan" class="form-control">
                                 <option value="0">--choose--</option>
                                 <?php
-                                foreach ($clan as $oneClan) {
+                                foreach ($clans as $oneClan) {
                                     $id = $oneClan->id;
-                                    $deckName = $oneClan->clanName;
+                                    $clanName = $oneClan->clanName;
                                     $selected = ($_POST['clan'] ?? "") == $id ? "selected" : "";
                                     echo "<option value=\"$id\" $selected>$clanName</option>";
                                 }
