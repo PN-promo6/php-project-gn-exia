@@ -26,7 +26,7 @@ $clanRepo = $orm->getRepository(Clan::class);
 
 $manager = $orm->getManager();
 
-$action = $_GET["action"] ?? "display";
+$action = substr(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 1);
 
 switch ($action) {
 
@@ -50,10 +50,9 @@ switch ($action) {
   case 'new':
 
     break;
-
+  default;
   case 'display':
     $controller = new HomeController();
     $controller->display();
-  default;
     break;
 }

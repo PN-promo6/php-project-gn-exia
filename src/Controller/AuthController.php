@@ -27,7 +27,7 @@ class AuthController
 
                     $_SESSION['user'] = $users[0];
 
-                    header('Location:/?action=display');
+                    header('Location:/display');
                 }
             } else {
 
@@ -47,7 +47,7 @@ class AuthController
 
             unset($_SESSION['user']);
         }
-        header('Location: ?action=display');
+        header('Location:/display');
     }
 
     public function register()
@@ -92,7 +92,7 @@ class AuthController
 
                 $manager->flush();
 
-                header('Location: ?action=register');
+                header('Location:/register');
             }
         } else {
 

@@ -14,7 +14,7 @@ include "inc/head.php";
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div id="login">
-                    <form class="form-signin" action="/?action=login" method="POST">
+                    <form class="form-signin" action="/login" method="POST">
                         <p>
                             <?php
                             if (isset($errorMsg)) {
