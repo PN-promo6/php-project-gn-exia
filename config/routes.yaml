@@ -1,18 +1,18 @@
 homepage:
-path: /
-controller: Controller\HomeController:display
+  path: /
+  controller: Controller\HomeController:display
 display:
-path: /display
-controller: Controller\HomeController:display
+  path: /display
+  controller: Controller\HomeController:display
 login:
-path: /login
-controller: Controller\AuthController:login
+  path: /login
+  controller: Controller\AuthController:login
 logout:
-path: /logout
-controller: Controller\AuthController:logout
+  path: /logout
+  controller: Controller\AuthController:logout
 register:
-path: /register
-controller: Controller\AuthController:register
+  path: /register
+  controller: Controller\AuthController:register
 create:
-path: /new
-controller: Controller\ContentController:create
+  path: /new
+  controller: Controller\ContentController:create

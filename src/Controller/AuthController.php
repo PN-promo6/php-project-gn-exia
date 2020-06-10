@@ -40,11 +40,11 @@ class AuthController extends AbstractController
 
                 $errorMsg = "Nickname doesn't exist.";
 
-                include "../templates/loginform.php";
+                return $this->render('loginform.php', ['errorMsg' => $errorMsg]);
             }
         } else {
 
-            include "../templates/loginform.php";
+            return $this->render('loginform.php');
         }
     }
 
